@@ -7,9 +7,7 @@
 声明：密码中没有空格，而密码中出现的大写字母则变成小写之后往后移一位，如：X，先变成小写，再往后移一位，不就是y了嘛，简单吧。记住，z往后移是a哦。
 """
 
-
-def convert(char):
-    mapping = {
+mapping = {
         'abc': '2',
         'def': '3',
         'ghi': '4',
@@ -19,8 +17,10 @@ def convert(char):
         'tuv': '8',
         'wxyz': '9'
     }
-    mapping = {x: v for k, v in mapping.items() for x in k}
-    
+mapping = {x: v for k, v in mapping.items() for x in k}
+
+
+def convert(char):
     if  'a' <= char <= 'z':
         return mapping.get(char)
     elif 'A' <= char <= 'Y':
