@@ -17,10 +17,9 @@
 输出描述:
 合并去重后形成的数字段集合，按升序排列。
 """
-
+# ------------------------------ 方法一：超时 ---------------------------
 from itertools import groupby
 from operator import itemgetter
-
 
 n = int(input())  # 数字段个数
 seq = set()  # 自然数序列
@@ -37,3 +36,26 @@ spl = [0] + [i for i in range(1, len(seq)) if seq[i] - seq[i-1] > 1] + [None]
 segs = [seq[b:e] for (b, e) in [(spl[i-1], spl[i]) for i in range(1, len(spl))]]
 for seg in segs:
     print(seg[0], seg[-1] + 1)
+
+# ------------------------------- 方法一 --------------------------------
+n = int(input().strip())
+array = []
+
+for i in range(n):
+    array.append(list(map(int, input().split())))
+
+array.sort(key=lambda x: (x[0], -x[1]))
+result = [array[0]]
+
+for i in range(1, len(array)):
+    a, b = result[-1]
+    start, end = array[i]
+    if start == b:
+        result[-1] = [a, end]
+    elif start > b:
+        result.append([start, end])
+    else:
+        result[-1] = [a, max(b, end)]
+
+for line in result:
+    print(line[0], line[1])
