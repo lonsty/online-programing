@@ -62,3 +62,41 @@ if __name__ == '__main__':
     solution = Solution(to_push)
     solution.all_unstack(0, [], [])
     solution.print_all_sequence()
+    
+# =================== 方法二 ======================
+# @Author: allen
+# @Date: Jul 11 18:35 2020
+from copy import copy
+from typing import List
+
+def print_stack_pop_seq(to_push: List[int], n,
+                        stack: List[int],
+                        popped: List[int]):
+    if n <= 0 or (not to_push and not stack and not popped):
+        return
+
+    if len(popped) == n:
+        while len(popped):
+            print(popped.pop(0), end=' ')
+        print()
+        return
+
+    stack_copy = copy(stack)
+    popped_copy = copy(popped)
+
+    if stack:
+        popped.append(stack.pop())
+        print_stack_pop_seq(copy(to_push), n, stack, popped)
+
+    if to_push:
+        stack_copy.append(to_push.pop(0))
+        print_stack_pop_seq(copy(to_push), n, stack_copy, popped_copy)
+
+
+if __name__ == '__main__':
+    to_push = [1, 2, 3, 4]
+    n = len(to_push)
+    stack = []
+    popped = []
+
+    print_stack_pop_seq(to_push, n, stack, popped)
